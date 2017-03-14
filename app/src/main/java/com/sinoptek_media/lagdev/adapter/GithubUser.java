@@ -1,4 +1,4 @@
-package com.sinoptek_media.lagdev;
+package com.sinoptek_media.lagdev.adapter;
 
 /**
  * Created by SINOPI on 3/5/2017.

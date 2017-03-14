@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sinoptek_media.lagdev.ProfileViewDesign;
 import com.sinoptek_media.lagdev.R;
-import com.sinoptek_media.lagdev.GithubUser;
 
 import java.util.List;
 

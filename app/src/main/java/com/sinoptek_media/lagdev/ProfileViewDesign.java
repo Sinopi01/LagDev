@@ -1,4 +1,5 @@
 package com.sinoptek_media.lagdev;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,13 +24,12 @@ import static com.sinoptek_media.lagdev.R.id.profile_url;
  * Created by SINOPI on 3/6/2017.
  */
 
-public class ProfileViewDesign extends AppCompatActivity{
+public class ProfileViewDesign extends AppCompatActivity {
     ImageView ShareButtonImage, profileImage;
     public String username;
     public String profileURL;
     public String profilePhotoUrl;
     TextView userNametxt, profileURLtxt;
-
 
 
     @Override
@@ -41,33 +41,25 @@ public class ProfileViewDesign extends AppCompatActivity{
         profileURL = intent.getStringExtra("profileUrl");
         profilePhotoUrl = intent.getStringExtra("profileImageUrl");
         ShareButtonImage = (ImageView) findViewById(R.id.share_profile);
-        //Toast.makeText(this, username,Toast.LENGTH_LONG).show();
-        userNametxt =(TextView)findViewById(R.id.user_name);
-        profileURLtxt =(TextView)findViewById(R.id.github_profile_url);
-        profileImage =(CircleImageView) findViewById(R.id.user_profile_photo);
+        userNametxt = (TextView) findViewById(R.id.user_name);
+        profileURLtxt = (TextView) findViewById(R.id.github_profile_url);
+        profileImage = (CircleImageView) findViewById(R.id.user_profile_photo);
 
-        try {
-            URL shareUrl = new URL(profileURL);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
         userNametxt.setText(username);
         profileURLtxt.setText(profileURL);
         Glide.with(this).load(profilePhotoUrl).into(profileImage);
 
-
-
         ShareButtonImage.setOnClickListener(new View.OnClickListener() {
             @Override
+            @TargetApi(21)
             public void onClick(View v) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Check out this awesome developer @ " + username+", "+ profileURL );
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Check out this awesome developer @ " + username + ", " + profileURL;
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share via");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
 
@@ -79,5 +71,7 @@ public class ProfileViewDesign extends AppCompatActivity{
                 startActivity(i);
             }
         });
+
+
     }
 }

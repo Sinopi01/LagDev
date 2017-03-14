@@ -1,6 +1,6 @@
 package com.sinoptek_media.lagdev.parser;
 
-import com.sinoptek_media.lagdev.GithubUser;
+import com.sinoptek_media.lagdev.adapter.GithubUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
